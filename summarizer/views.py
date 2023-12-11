@@ -14,10 +14,10 @@ class SummarizeAPIView(View):
 
     def post(self, request, *args, **kwargs):
         # Get the article_text from the POST request
-        article_text = request.POST.get('article_text', '')
+        text = request.POST.get('text', '')
 
         # Tokenize sentences
-        sentences = sent_tokenize(article_text)
+        sentences = sent_tokenize(text)
 
         # TF-IDF vectorization
         vectorizer = TfidfVectorizer()
@@ -36,8 +36,8 @@ class SummarizeAPIView(View):
 
         # Return the summary and the original article text as a JSON response
         response_data = {
-            'original_article': article_text,
-            'summary': summary,
+            'original': text,
+            'summarized': summary,
         }
 
         return JsonResponse(response_data)
